@@ -2007,24 +2007,17 @@ const movies = [
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 1: All directors
-const getAllDirectors = () => {
-    // Create an array with all directors
-    const allDirectors = movies.map(movie => movie.director);
-   
-    // Use filter() to remove duplicate directors
-    const uniqueDirectors = allDirectors.filter((director, index, self) => {
-       return self.indexOf(director) === index;
-    });
-   
-    return uniqueDirectors;
-   };
-console.log(`------------------------------------------------------All Directors:------------------------------------------------------\n ${getAllDirectors()}`);
+const allDirectors = movies.map(movie => movie.director);
+
+console.log("------------------------------------------------------All directors:------------------------------------------------------");
+console.log(allDirectors);
 
 //BONUS - Iteration 1.1: Clean the array of directors
 // Create an array of unique directors
 const uniqueDirectors = [...new Set(movies.map(movie => movie.director))];
 
-console.log(`\n------------------------------------------------------Unique directors:------------------------------------------------------ \n ${uniqueDirectors}`);
+console.log("------------------------------------------------------Unique directors:------------------------------------------------------");
+console.log(uniqueDirectors);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 2: Steven Spielberg. The best?
@@ -2039,7 +2032,7 @@ const isStevenSpielbergBest = (director) => {
   return maxScore >= 8 && averageScore >= 8;
  };
  
-console.log(`------------------------------------------------------Is Steven Spielberg the best director?------------------------------------------------------\n ${isStevenSpielbergBest("Steven Spielberg")}`);
+ console.log(`------------------------------------------------------Is Steven Spielberg the best director?------------------------------------------------------\n ${isStevenSpielbergBest("Steven Spielberg")}`);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 3: All scores average
