@@ -2021,18 +2021,35 @@ console.log(uniqueDirectors);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 2: Steven Spielberg. The best?
-const isStevenSpielbergBest = (director) => {
-  const spFilms = movies.filter(movie => movie.director === director);
-  const maxScore = Math.max(...spFilms.map(movie => movie.score));
-  const averageScore = spFilms.reduce((total, movie) => total + movie.score, 0) / spFilms.length;
- 
-  console.log(`\nSteven Spielberg's highest score: ${maxScore}`);
-  console.log(`Steven Spielberg's average score: ${averageScore}`);
- 
-  return maxScore >= 8 && averageScore >= 8;
- };
- 
- console.log(`------------------------------------------------------Is Steven Spielberg the best director?------------------------------------------------------\n ${isStevenSpielbergBest("Steven Spielberg")}`);
+function howManyMovies(movieArray) {
+  // Filter the movies that belong to the "Drama" genre and have Steven Spielberg as the director
+  const spielbergDramaMovies = movieArray.filter(movie => {
+    return (
+      movie.director === "Steven Spielberg" &&
+      movie.genre.includes("Drama")
+    );
+  });
+
+  if (spielbergDramaMovies.length === 0) {
+    return "Steven Spielberg has no drama movies in the list.";
+  }
+
+  // Calculate the total score of all Spielberg's drama movies
+  const totalScore = spielbergDramaMovies.reduce(
+    (sum, movie) => sum + movie.score,
+    0
+  );
+
+  // Calculate the average score and round it to two decimal places
+  const averageScore = totalScore / spielbergDramaMovies.length;
+  const roundedAverage = Math.round(averageScore * 100) / 100;
+
+  return `Steven Spielberg directed ${spielbergDramaMovies.length} drama movies with an average score of ${roundedAverage}`;
+}
+
+// Example usage with your movies array
+const spielbergDramaInfo = howManyMovies(movies);
+ console.log(`------------------------------------------------------About Steven Spielberg: ------------------------------------------------------\n ${spielbergDramaInfo}`);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 3: All scores average
@@ -2041,44 +2058,83 @@ const calculateAverageScores = () => {
 
   return averageScore;
 }
-console.log(`------------------------------------------------------The average score for all films is: ${calculateAverageScores()} ------------------------------------------------------`);
+console.log(`\n------------------------------------------------------The average score for all films is: ------------------------------------------------------`);
+console.log('Score: '+calculateAverageScores())
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 4: Drama movies
-const dramaMovies = movies.filter(movie => movie.genre.includes("Drama"));
+function dramaMoviesScore(movieArray) {
+  // Filter the movies that belong to the "Drama" genre
+  const dramaMovies = movieArray.filter(movie => movie.genre.includes("Drama"));
 
+  // Calculate the total score of all drama movies
+  const totalScore = dramaMovies.reduce((sum, movie) => sum + movie.score, 0);
+
+  // Calculate the average score (rounded to 2 decimal places)
+  const averageScore = totalScore / dramaMovies.length;
+  return Math.round(averageScore * 100) / 100;
+}
+
+const averageDramaScore = dramaMoviesScore(movies);
 console.log("\n------------------------------------------------------Drama movies:------------------------------------------------------");
-console.log(dramaMovies);
+console.log(`Score: `+averageDramaScore);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 5: Order by year
-//Sort in ascending order
-    // Return the difference in years between a and b
-movies.sort((a, b) => a.year - b.year);
+function orderByYear(movieArray) {
+  // Clone the original array to avoid modifying it
+  const clonedArray = [...movieArray];
 
-console.log("------------------------------------------------------Movies ordered by year (ascending):------------------------------------------------------");
-console.log(movies);
+  clonedArray.sort((a, b) => {
+    if (a.year !== b.year) {
+      return a.year - b.year;
+    } else {
+      return a.title.localeCompare(b.title);
+    }
+  });
+
+  return clonedArray;
+}
+
+const moviesOrderedByYear = orderByYear(movies);
+console.log("\n------------------------------------------------------Movies ordered by year:------------------------------------------------------");
+console.log(moviesOrderedByYear);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 6: Alphabetic order
-// Sort in alphabetical order based on their titles
-movies.sort((a, b) => a.title.localeCompare(b.title));
+function orderAlphabetically(movieArray) {
 
-console.log("------------------------------------------------------Movies ordered alphabetically:------------------------------------------------------");
-console.log(movies);
+  const clonedArray = [...movieArray];
+
+  // Sort the cloned array alphabetically by movie title
+  clonedArray.sort((a, b) => a.title.localeCompare(b.title));
+
+  // Extract the titles of the first 20 movies (or all if there are fewer than 20)
+  const top20Titles = clonedArray.slice(0, 20).map(movie => movie.title);
+
+  return top20Titles;
+}
+
+const top20MovieTitles = orderAlphabetically(movies);
+console.log("------------------------------------------------------Top 20 movie titles sorted alphabetically:------------------------------------------------------");
+console.log(top20MovieTitles);
 
 //---------------------------------------------------------------------------------------------------
 //BONUS - Iteration 7: Time format
-// Update the duration in each movie to the total number of minutes
-movies.forEach(movie => {
-  const originalDuration = movie.duration;
-  const [hours, minutes] = originalDuration.match(/\d+/g); // Extract hours and minutes
-  const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-  movie.duration = `${totalMinutes} minutes`;
-});
+// Function to convert a time duration string to minutes
+function convertToMinutes(duration) {
+  const [hours, minutes] = duration.match(/\d+/g).map(Number);
+  const totalMinutes = hours * 60 + minutes;
+  return `${totalMinutes} minutes`;
+}
+
+// Create a new array of movie objects with duration in minutes
+const moviesInMinutes = movies.map(movie => ({
+  ...movie,duration: convertToMinutes(movie.duration),
+}));
 
 console.log("------------------------------------------------------Movies with formatted duration:------------------------------------------------------");
-console.log(movies);
+console.log(moviesInMinutes);
 
 //---------------------------------------------------------------------------------------------------
 //BONUS - Iteration 8: Best yearly score average
