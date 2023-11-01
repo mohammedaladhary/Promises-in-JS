@@ -2041,7 +2041,7 @@ const calculateAverageScores = () => {
 
   return averageScore;
 }
-console.log(`The average score for all films is ${calculateAverageScores()}`);
+console.log(`------------------------------------------------------The average score for all films is: ${calculateAverageScores()} ------------------------------------------------------`);
 
 //---------------------------------------------------------------------------------------------------
 //Iteration 4: Drama movies
