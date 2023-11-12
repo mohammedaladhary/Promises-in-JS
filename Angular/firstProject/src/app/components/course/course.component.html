@@ -1,0 +1,10 @@
+<h1>Shopping list</h1>
+
+<ul>
+    <li
+    *ngFor="let item of shoppingList; let i = index"
+    [ngClass]="{odd : i%2 === 0}"
+    >
+    {{i+1}}. = {{item}}
+</li>
+</ul>

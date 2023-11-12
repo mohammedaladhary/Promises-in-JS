@@ -1,0 +1,27 @@
+<!-- String interpulation -->
+<h1>Hello {{ firstName }} {{ lastName }}</h1>
+<h2>This is the HOME page</h2>
+
+<!-- Property binding -->
+<!-- <input type="text" [placeholder]="message">
+<br>
+<input type="text" [placeholder]="message">
+<br>
+<button>Submit</button> -->
+
+<!-- Event binding -->
+<!-- <input type="text" [placeholder]="message" [value]="firstName">
+<br>
+<input type="text" [placeholder]="message" [value]="lastName">
+<br>
+<button (click)="sayHello()">Submit</button> -->
+
+<!-- Two way binding -->
+<input type="text" [placeholder]="message" [(ngModel)]="firstName">
+<br>
+<input type="text" [placeholder]="message" [(ngModel)]="lastName">
+<br>
+<button (click)="sayHello()">Submit</button>
+<div class="name" *ngIf="isName()">
+    <p [ngStyle]="{'color':'red'}"> Welcome {{firstName}}</p>
+</div>

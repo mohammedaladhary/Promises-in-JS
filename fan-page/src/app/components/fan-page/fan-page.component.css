@@ -1,0 +1,10 @@
+/* fan-page.component.css */
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .fan-list div {
+    margin: 1em 0;
+  }  
